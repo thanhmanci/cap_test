@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password: 1
+  timeout: 5000
+  redis:
+    host: redis://localhost:6379
+    options:
+      :namespace: "w_retouch_<%= Rails.env %>"
+
+development:
+  <<: *default
+  database: w_retouch_development
+
+production:
+  <<: *default
+  database: <%= ENV["DATABASE_NAME"] %>
+
+test:
+  <<: *default
+  database: w_retouch_test
